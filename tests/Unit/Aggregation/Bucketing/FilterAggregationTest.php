@@ -101,24 +101,22 @@ class FilterAggregationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test for setField().
-     *
-     * @expectedException        \LogicException
-     * @expectedExceptionMessage doesn't support `field` parameter
      */
     public function testSetField()
     {
+        $this->expectExceptionMessage("doesn't support `field` parameter");
+        $this->expectException(\LogicException::class);
         $aggregation = new FilterAggregation('test_agg');
         $aggregation->setField('test_field');
     }
 
     /**
      * Test for toArray() without setting a filter.
-     *
-     * @expectedException        \LogicException
-     * @expectedExceptionMessage has no filter added
      */
     public function testToArrayNoFilter()
     {
+        $this->expectExceptionMessage("has no filter added");
+        $this->expectException(\LogicException::class);
         $aggregation = new FilterAggregation('test_agg');
         $result = $aggregation->toArray();
 

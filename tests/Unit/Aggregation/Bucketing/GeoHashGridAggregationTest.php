@@ -20,11 +20,10 @@ class GeoHashGridAggregationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test if exception is thrown.
-     *
-     * @expectedException \LogicException
      */
     public function testGeoHashGridAggregationException()
     {
+        $this->expectException(\LogicException::class);
         $agg = new GeoHashGridAggregation('test_agg');
         $agg->getArray();
     }
@@ -65,7 +64,7 @@ class GeoHashGridAggregationTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider getArrayDataProvider
      */
-    public function testGeoHashGridAggregationGetArray($filterData, $expected)
+    public function testGeoHashGridAggregationGetArray(array $filterData, array $expected)
     {
         $aggregation = new GeoHashGridAggregation('foo');
         $aggregation->setPrecision($filterData['precision']);
