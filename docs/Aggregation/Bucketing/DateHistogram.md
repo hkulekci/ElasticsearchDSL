@@ -13,7 +13,7 @@ Example of expressions for interval: `year`, `quarter`, `month`, `week`, `day`, 
         "articles_over_time" : {
             "date_histogram" : {
                 "field" : "date",
-                "interval" : "month"
+                "calendar_interval" : "month"
             }
         }
     }
@@ -42,7 +42,7 @@ to provide a custom format to the results of the query:
         "articles_over_time" : {
             "date_histogram" : {
                 "field" : "date",
-                "interval" : "1M",
+                "calendar_interval" : "1M",
                 "format" : "yyyy-MM-dd"
             }
         }
