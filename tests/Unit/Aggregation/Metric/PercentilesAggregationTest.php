@@ -17,12 +17,11 @@ class PercentilesAggregationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tests if PercentilesAggregation#getArray throws exception when expected.
-     *
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Percentiles aggregation must have field or script set.
      */
     public function testPercentilesAggregationGetArrayException()
     {
+        $this->expectExceptionMessage("Percentiles aggregation must have field or script set.");
+        $this->expectException(\LogicException::class);
         $aggregation = new PercentilesAggregation('bar');
         $aggregation->getArray();
     }

@@ -50,12 +50,11 @@ class BucketScriptAggregationTest extends \PHPUnit\Framework\TestCase
     /**
      * Tests if the exception is thrown in getArray method if no
      * buckets_path or script is set
-     *
-     * @expectedException \LogicException
-     * @expectedExceptionMessage `test` aggregation must have script set.
      */
     public function testGetArrayException()
     {
+        $this->expectExceptionMessage("`test` aggregation must have script set.");
+        $this->expectException(\LogicException::class);
         $agg = new BucketScriptAggregation('test', []);
 
         $agg->getArray();
