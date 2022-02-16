@@ -44,8 +44,13 @@ class PercentilesAggregation extends AbstractAggregation
      * @param string|null $script
      * @param int|null $compression
      */
-    public function __construct(string $name, string $field = null, array $percents = null, string $script = null, int $compression = null)
-    {
+    public function __construct(
+        string $name,
+        string $field = null,
+        array $percents = null,
+        string $script = null,
+        int $compression = null
+    ) {
         parent::__construct($name);
 
         $this->setField($field);

@@ -156,7 +156,7 @@ class DateHistogramAggregation extends AbstractAggregation
 
         if ($this->getCalendarInterval()) {
             $out['calendar_interval'] = $this->getCalendarInterval();
-        } else if ($this->getFixedInterval()) {
+        } elseif ($this->getFixedInterval()) {
             $out['fixed_interval'] = $this->getFixedInterval();
         }
 
