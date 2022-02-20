@@ -118,11 +118,10 @@ abstract class AbstractElasticsearchTestCase extends TestCase
      * Execute search to the elasticsearch and handle results.
      *
      * @param Search $search Search object.
-     * @param null $type Types to search. Can be several types split by comma.
      * @param bool $returnRaw Return raw response from the client.
      * @return array
      */
-    protected function executeSearch(Search $search, $type = null, $returnRaw = false)
+    protected function executeSearch(Search $search, bool $returnRaw = false): array
     {
         $response = $this->client->search(
             array_filter([
