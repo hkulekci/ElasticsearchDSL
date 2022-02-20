@@ -54,7 +54,6 @@ abstract class AbstractElasticsearchTestCase extends TestCase
                 $bulkBody[] = [
                    'index' => [
                         '_index' => self::INDEX_NAME,
-                        '_type' => $type,
                         '_id' => $id,
                     ]
                 ];
@@ -128,7 +127,6 @@ abstract class AbstractElasticsearchTestCase extends TestCase
         $response = $this->client->search(
             array_filter([
                 'index' => self::INDEX_NAME,
-                'type' => $type,
                 'body' => $search->toArray(),
             ])
         );

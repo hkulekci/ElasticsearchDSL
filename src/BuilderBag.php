@@ -100,13 +100,13 @@ class BuilderBag
      *
      * @return BuilderInterface[]
      */
-    public function all($type = null)
+    public function all(string $type = null)
     {
         return array_filter(
             $this->bag,
             /** @var BuilderInterface $builder */
-            function (BuilderInterface $builder) use ($type) {
-                return $type === null || $builder->getType() == $type;
+            static function (BuilderInterface $builder) use ($type) {
+                return $type === null || $builder->getType() === $type;
             }
         );
     }
