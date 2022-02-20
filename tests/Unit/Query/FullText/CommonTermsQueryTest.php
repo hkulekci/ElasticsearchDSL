@@ -20,12 +20,20 @@ class CommonTermsQueryTest extends \PHPUnit\Framework\TestCase
      */
     public function testToArray()
     {
-        $query = new CommonTermsQuery('body', 'this is bonsai cool', ['cutoff_frequency' => 0.01]);
+        $query = new CommonTermsQuery('body', 'this is bonsai cool', [
+            "minimum_should_match" => [
+                "low_freq" => 2,
+                "high_freq" => 3
+            ]
+        ]);
         $expected = [
             'common' => [
                 'body' => [
                     'query' => 'this is bonsai cool',
-                    'cutoff_frequency' => 0.01,
+                    "minimum_should_match" => [
+                        "low_freq" => 2,
+                        "high_freq" => 3
+                    ]
                 ],
             ],
         ];

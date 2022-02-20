@@ -11,7 +11,6 @@ Lets take first example to write easy `Common query` with Elasticsearch DSL.
   "common": {
     "name": {
       "query": "this is bonsai cool",
-      "cutoff_frequency": 0.001,
       "minimum_should_match": {
           "low_freq" : 2,
           "high_freq" : 3
@@ -28,7 +27,6 @@ $commonTermsQuery = new CommonTermsQuery(
     "field_name",
     "this is bonsai cool",
     [
-        "cutoff_frequency" => 0.001,
         "minimum_should_match" => [
           "low_freq" => 2,
           "high_freq" => 3,
