@@ -12,15 +12,19 @@
         {
             "name": "Handcrafted in the Alps Team",
             "homepage": "https://github.com/handcraftedinthealps/ElasticsearchDSL/graphs/contributors"
+        },
+        {
+            "name": "Haydar KULEKCI",
+            "homepage": "https://github.com/hkulekci/ElasticsearchDSL/graphs/contributors"
         }
     ],
     "require": {
-        "php": "^7.1|^8.0",
+        "php": "^7.4 || ^8.0",
         "symfony/serializer": "^2.8 || ^3.4 || ^4.0 || ^5.0",
-        "elasticsearch/elasticsearch": "^7.0"
+        "elasticsearch/elasticsearch": "^8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7.26 || ^7.5.20 || ^8.0",
+        "phpunit/phpunit": "^5.7.26 || ^7.5.20 || ^8.0 || ^9.0",
         "squizlabs/php_codesniffer": "^2.0 || ^3.0"
     },
     "suggest": {

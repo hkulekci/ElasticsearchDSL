@@ -31,40 +31,92 @@ class DateHistogramAggregation extends AbstractAggregation
     /**
      * @var string
      */
+    protected $calendarInterval;
+
+    /**
+     * @var string
+     */
+    protected $fixedInterval;
+
+    /**
+     * @var string
+     */
     protected $format;
 
     /**
      * Inner aggregations container init.
      *
      * @param string $name
-     * @param string $field
-     * @param string $interval
+     * @param string|null $field
+     * @param string|null $interval
+     * @param string|null $format
      */
-    public function __construct($name, $field = null, $interval = null, $format = null)
+    public function __construct($name, string $field = null, string $interval = null, string $format = null)
     {
         parent::__construct($name);
 
         $this->setField($field);
-        $this->setInterval($interval);
+        $this->setCalendarInterval($interval);
         $this->setFormat($format);
     }
 
     /**
-     * @return int
+     * @return string
+     * @deprecated use getCalendarInterval instead
      */
     public function getInterval()
     {
-        return $this->interval;
+        return $this->calendarInterval;
     }
 
     /**
      * @param string $interval
+     * @deprecated use setCalendarInterval instead
      *
      * @return $this
      */
     public function setInterval($interval)
     {
-        $this->interval = $interval;
+        $this->setCalendarInterval($interval);
+
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getFixedInterval()
+    {
+        return $this->fixedInterval;
+    }
+
+    /**
+     * @param string $interval
+     * @return $this
+     */
+    public function setFixedInterval($interval)
+    {
+        $this->fixedInterval = $interval;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCalendarInterval()
+    {
+        return $this->calendarInterval;
+    }
+
+    /**
+     * @param string $interval
+     * @return $this
+     */
+    public function setCalendarInterval($interval)
+    {
+        $this->calendarInterval = $interval;
 
         return $this;
     }
@@ -94,14 +146,19 @@ class DateHistogramAggregation extends AbstractAggregation
      */
     public function getArray()
     {
-        if (!$this->getField() || !$this->getInterval()) {
+        if (!$this->getField() || !($this->getCalendarInterval() || $this->getFixedInterval())) {
             throw new \LogicException('Date histogram aggregation must have field and interval set.');
         }
 
         $out = [
             'field' => $this->getField(),
-            'interval' => $this->getInterval(),
         ];
+
+        if ($this->getCalendarInterval()) {
+            $out['calendar_interval'] = $this->getCalendarInterval();
+        } elseif ($this->getFixedInterval()) {
+            $out['fixed_interval'] = $this->getFixedInterval();
+        }
 
         if (!empty($this->format)) {
             $out['format'] = $this->format;

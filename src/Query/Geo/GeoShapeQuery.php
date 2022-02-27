@@ -23,10 +23,10 @@ class GeoShapeQuery implements BuilderInterface
 {
     use ParametersTrait;
 
-    const INTERSECTS = 'intersects';
-    const DISJOINT = 'disjoint';
-    const WITHIN = 'within';
-    const CONTAINS = 'contains';
+    public const INTERSECTS = 'intersects';
+    public const DISJOINT = 'disjoint';
+    public const WITHIN = 'within';
+    public const CONTAINS = 'contains';
 
     /**
      * @var array
@@ -60,13 +60,6 @@ class GeoShapeQuery implements BuilderInterface
      */
     public function addShape($field, $type, array $coordinates, $relation = self::INTERSECTS, array $parameters = [])
     {
-        // TODO: remove this in the next major version
-        if (is_array($relation)) {
-            $parameters = $relation;
-            $relation = self::INTERSECTS;
-            trigger_error('$parameters as parameter 4 in addShape is deprecated', E_USER_DEPRECATED);
-        }
-
         $filter = array_merge(
             $parameters,
             [
@@ -101,13 +94,6 @@ class GeoShapeQuery implements BuilderInterface
         $relation = self::INTERSECTS,
         array $parameters = []
     ) {
-        // TODO: remove this in the next major version
-        if (is_array($relation)) {
-            $parameters = $relation;
-            $relation = self::INTERSECTS;
-            trigger_error('$parameters as parameter 6 in addShape is deprecated', E_USER_DEPRECATED);
-        }
-
         $filter = array_merge(
             $parameters,
             [
