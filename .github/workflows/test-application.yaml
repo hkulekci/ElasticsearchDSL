@@ -24,6 +24,10 @@ jobs:
                       lint: true
                       symfony-version: '^5.0'
 
+                    - php-version: '8.1'
+                      lint: true
+                      symfony-version: '^5.0'
+
         services:
             elasticsearch:
                 image: elasticsearch:8.0.0
