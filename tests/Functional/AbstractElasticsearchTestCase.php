@@ -11,8 +11,8 @@
 
 namespace ONGR\ElasticsearchDSL\Tests\Functional;
 
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 use ONGR\ElasticsearchDSL\Search;
 use PHPUnit\Framework\TestCase;
 
@@ -120,6 +120,9 @@ abstract class AbstractElasticsearchTestCase extends TestCase
      * @param Search $search Search object.
      * @param bool $returnRaw Return raw response from the client.
      * @return array
+     * @throws \Elastic\Elasticsearch\Exception\ClientResponseException
+     * @throws \Elastic\Elasticsearch\Exception\MissingParameterException
+     * @throws \Elastic\Elasticsearch\Exception\ServerResponseException
      */
     protected function executeSearch(Search $search, bool $returnRaw = false): array
     {
@@ -131,7 +134,7 @@ abstract class AbstractElasticsearchTestCase extends TestCase
         );
 
         if ($returnRaw) {
-            return $response;
+            return $response->asArray();
         }
 
         $documents = [];
