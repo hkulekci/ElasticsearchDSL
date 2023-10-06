@@ -41,6 +41,11 @@ class Knn implements BuilderInterface
     /**
      * @var int
      */
+    private $boost;
+
+    /**
+     * @var float
+     */
     private $similarity = null;
 
     /**
@@ -133,17 +138,17 @@ class Knn implements BuilderInterface
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getSimilarity(): ?int
+    public function getSimilarity(): ?float
     {
         return $this->similarity;
     }
 
     /**
-     * @param int $similarity
+     * @param float $similarity
      */
-    public function setSimilarity(int $similarity): void
+    public function setSimilarity(float $similarity): void
     {
         $this->similarity = $similarity;
     }
@@ -183,6 +188,10 @@ class Knn implements BuilderInterface
             'k' => $this->getK(),
             'num_candidates' => $this->getNumCandidates(),
         ];
+
+        if ($this->getSimilarity()) {
+            $output['similarity'] = $this->getSimilarity();
+        }
 
         if ($this->getFilter()) {
             $output['filter'] = $this->getFilter()->toArray();

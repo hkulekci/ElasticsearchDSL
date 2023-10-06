@@ -11,6 +11,7 @@
 
 namespace ONGR\ElasticsearchDSL\SearchEndpoint;
 
+use ONGR\ElasticsearchDSL\BuilderInterface;
 use ONGR\ElasticsearchDSL\Knn\Knn;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -24,6 +25,15 @@ class KnnEndpoint extends AbstractSearchEndpoint
      */
     const NAME = 'knn';
 
+    public function add(BuilderInterface $builder, $key = null)
+    {
+        if ($builder instanceof Knn) {
+            return parent::add($builder, $key);
+        }
+
+        throw new \LogicException('You need to add Knn builder!');
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -36,9 +46,7 @@ class KnnEndpoint extends AbstractSearchEndpoint
         if (count($this->getAll()) > 0) {
             /** @var Knn $knn */
             foreach ($this->getAll() as $knn) {
-                if ($knn instanceof Knn) {
-                    $output = $knn->toArray();
-                }
+                $output[] = $knn->toArray();
             }
         }
 
