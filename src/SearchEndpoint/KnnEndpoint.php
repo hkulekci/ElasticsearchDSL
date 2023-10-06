@@ -11,18 +11,18 @@
 
 namespace ONGR\ElasticsearchDSL\SearchEndpoint;
 
-use ONGR\ElasticsearchDSL\Suggest\Suggest;
+use ONGR\ElasticsearchDSL\Knn\Knn;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Search suggest dsl endpoint.
  */
-class SuggestEndpoint extends AbstractSearchEndpoint
+class KnnEndpoint extends AbstractSearchEndpoint
 {
     /**
      * Endpoint name
      */
-    const NAME = 'suggest';
+    const NAME = 'knn';
 
     /**
      * {@inheritdoc}
@@ -34,9 +34,11 @@ class SuggestEndpoint extends AbstractSearchEndpoint
     ): array|string|int|float|bool {
         $output = [];
         if (count($this->getAll()) > 0) {
-            /** @var Suggest $suggest */
-            foreach ($this->getAll() as $suggest) {
-                $output = array_merge($output, $suggest->toArray());
+            /** @var Knn $knn */
+            foreach ($this->getAll() as $knn) {
+                if ($knn instanceof Knn) {
+                    $output = $knn->toArray();
+                }
             }
         }
 
