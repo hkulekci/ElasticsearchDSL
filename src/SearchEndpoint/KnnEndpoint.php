@@ -31,7 +31,7 @@ class KnnEndpoint extends AbstractSearchEndpoint
             return parent::add($builder, $key);
         }
 
-        throw new \LogicException('You need to add Knn builder!');
+        throw new \LogicException('Add Knn builder instead!');
     }
 
     /**

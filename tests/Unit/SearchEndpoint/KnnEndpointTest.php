@@ -12,6 +12,7 @@
 namespace ONGR\ElasticsearchDSL\Tests\Unit\SearchEndpoint;
 
 use ONGR\ElasticsearchDSL\Knn\Knn;
+use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\SearchEndpoint\KnnEndpoint;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +44,18 @@ class KnnEndpointTest extends TestCase
 
         $this->assertCount(1, $builders);
         $this->assertSame($knn, $builders['knn']);
+    }
+
+    /**
+     * Tests if endpoint returns builders.
+     */
+    public function testEndpointException(): void
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Add Knn builder instead!');
+        $knn = new MatchAllQuery();
+        $endpoint = new KnnEndpoint();
+        $endpoint->add($knn);
     }
 
     /**
