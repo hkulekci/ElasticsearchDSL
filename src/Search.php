@@ -19,6 +19,7 @@ use ONGR\ElasticsearchDSL\SearchEndpoint\AbstractSearchEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\AggregationsEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\HighlightEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\InnerHitsEndpoint;
+use ONGR\ElasticsearchDSL\SearchEndpoint\KnnEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\PostFilterEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\QueryEndpoint;
 use ONGR\ElasticsearchDSL\SearchEndpoint\SearchEndpointFactory;
@@ -225,6 +226,22 @@ class Search
     {
         $endpoint = $this->getEndpoint(QueryEndpoint::NAME);
         $endpoint->addToBool($query, $boolType, $key);
+
+        return $this;
+    }
+
+
+    /**
+     * Adds Knn to the search.
+     *
+     * @param BuilderInterface $query
+     *
+     * @return $this
+     */
+    public function addKnn(BuilderInterface $query)
+    {
+        $endpoint = $this->getEndpoint(KnnEndpoint::NAME);
+        $endpoint->add($query);
 
         return $this;
     }
