@@ -42,14 +42,22 @@ class KnnEndpoint extends AbstractSearchEndpoint
         $format = null,
         array $context = []
     ): array|string|int|float|bool {
-        $output = [];
-        if (count($this->getAll()) > 0) {
+        $knns = $this->getAll();
+        if (count($knns) === 1) {
             /** @var Knn $knn */
-            foreach ($this->getAll() as $knn) {
-                $output[] = $knn->toArray();
-            }
+            $knn = array_values($knns)[0];
+            return $knn->toArray();
         }
 
-        return $output;
+        if (count($knns) > 1) {
+            $output = [];
+            /** @var Knn $knn */
+            foreach ($knns as $knn) {
+                $output[] = $knn->toArray();
+            }
+            return $output;
+        }
+
+        return [];
     }
 }
