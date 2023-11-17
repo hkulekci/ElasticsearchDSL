@@ -6,7 +6,8 @@
 
 namespace ONGR\ElasticsearchDSL\Tests\Functional\Knn;
 
-use ONGR\ElasticsearchDSL\Aggregation\Bucketing\DateHistogramAggregation;
+use Composer\InstalledVersions;
+use Elastic\Elasticsearch\Client;
 use ONGR\ElasticsearchDSL\Knn\Knn;
 use ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery;
 use ONGR\ElasticsearchDSL\Search;
@@ -78,6 +79,22 @@ class KnnTest extends AbstractElasticsearchTestCase
 
         $search = new Search();
         $search->addKnn($knn);
+        $results = $this->executeSearch($search, true);
+        $this->assertCount(1, $results['hits']['hits']);
+        $this->assertEquals('doc_3', $results['hits']['hits'][0]['_id']);
+    }
+
+    /**
+     * Match all test
+     */
+    public function testMultipleKnnSearchWithBoost(): void
+    {
+        $knn1 = new Knn('vector_field', [1, 2, 3], 1, 1);
+        $knn1->setFilter(new TermQuery('label', 2));
+        $knn1->setBoost(0.5);
+
+        $search = new Search();
+        $search->addKnn($knn1);
         $results = $this->executeSearch($search, true);
         $this->assertCount(1, $results['hits']['hits']);
         $this->assertEquals('doc_3', $results['hits']['hits'][0]['_id']);
