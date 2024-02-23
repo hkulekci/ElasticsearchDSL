@@ -124,7 +124,7 @@ class Search
     /**
      * Exclude documents which have a _score less than the minimum specified in min_score.
      *
-     * @var int
+     * @var float
      */
     private $minScore;
 
@@ -676,7 +676,7 @@ class Search
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getMinScore()
     {
@@ -684,7 +684,7 @@ class Search
     }
 
     /**
-     * @param int $minScore
+     * @param float $minScore
      *
      * @return $this
      */
